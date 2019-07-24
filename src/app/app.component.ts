@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { PhotoService } from './photos/photo/photo.service';
+
+
 
 
 
@@ -8,15 +10,18 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+
+export class AppComponent implements OnInit {
+  // tslint:disable-next-line: ban-types
   photos: Object[] = [];
-  
-  constructor(http: HttpClient){
-    http
-    .get<Object[]>('http://localhost:3000/flavio/photos')
-    .subscribe(photos => this.photos = photos,
-    err => console.log(err)
-    )}
+
+  constructor(private photoService: PhotoService){}
+
+  ngOnInit(): void {
+
+    this.photoService.listFromUse('flavio')
+    .subscribe(photos => this.photos = photos);
+  }
 }
 
 

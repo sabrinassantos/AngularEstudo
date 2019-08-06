@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../photo/photo.service';
 import { ActivatedRoute } from '@angular/router';
+import { Photo } from '../photo/photo';
 
 @Component({
   selector: 'app-photo-list',
@@ -10,17 +11,22 @@ import { ActivatedRoute } from '@angular/router';
 export class PhotoListComponent implements OnInit {
 
   // tslint:disable-next-line: ban-types
-  photos: Object[] = [];
+  photos: any[] = [];
 
   constructor(
     private photoService: PhotoService,
     private activatedRoute: ActivatedRoute
-    ){ }
+    ) { }
 
   ngOnInit(): void {
 
-    const userName = this.activatedRoute.snapshot.params.userName;
-    this.photoService.listFromUse(userName)
-    .subscribe(photos => this.photos = photos);
+    const userName = this.activatedRoute
+      .snapshot
+      .params
+      .userName;
+
+    this.photoService
+        .listFromUse(userName)
+        .subscribe(photos => this.photos = photos);
   }
 }

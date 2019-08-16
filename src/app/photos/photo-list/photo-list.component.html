@@ -10,7 +10,6 @@
       então no caso estou dizendo para o evento keyup que ele vai avaliar a expressão
     -->
   </form>
-
 </div>
 
-<ap-photos [photos]="photos"></ap-photos>
+<ap-photos [photos]="photos | filterbyDescription: filter"></ap-photos>
